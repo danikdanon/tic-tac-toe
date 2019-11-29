@@ -1,4 +1,4 @@
-package com.isergeyam.battleship.model;
+package com.danyaturk.project.backend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
