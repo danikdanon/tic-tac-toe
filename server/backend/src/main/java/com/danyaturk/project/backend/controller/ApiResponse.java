@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by rajeevkumarsingh on 19/08/17.
+ * ApiResponse
  */
 @Getter
 @Setter
