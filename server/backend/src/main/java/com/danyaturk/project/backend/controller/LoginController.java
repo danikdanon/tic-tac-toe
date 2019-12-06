@@ -38,6 +38,7 @@ public class LoginController {
   @Autowired
   private Hashtable<String, User> currentlyLoggedUser;
 
+  @CrossOrigin
   @PostMapping("/register")
   public ResponseEntity<?> registerNewUser(@Valid @RequestBody SignUpRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -57,6 +58,7 @@ public class LoginController {
     return new ResponseEntity<>(new ApiResponse<String>(true, "User created successfully"), HttpStatus.OK);
   }
 
+  @CrossOrigin
   @PostMapping("/login")
   public ResponseEntity<?> loginUser(@Valid @RequestBody LogInRequest logInRequest) {
     Optional<User> optuser = userRepository.findByEmail(logInRequest.getUserNameOrEmail());

@@ -48,6 +48,7 @@ function register(user) {
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
+                    console.log("AXIOS ERROR: ", error);
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
                 }
