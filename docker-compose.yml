@@ -1,0 +1,61 @@
+version: '3.7'
+
+services:
+  app-server:
+    build:
+      context: server/backend
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    restart: always
+    depends_on: 
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/full_stack_project?serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: full_stack_project
+      SPRING_DATASOURCE_PASSWORD: 1q2w3e4r     
+    networks:
+      - backend
+      - frontend
+    image:  danya/tic-tac-toe-backend
+
+  app-client:
+    build:
+      context: client/frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: "${REACT_APP_API_BASE_URL}"
+    environment:
+      REACT_APP_API_BASE_URL: "${REACT_APP_API_BASE_URL}"
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - app-server
+    networks:
+      - frontend  
+    image:  danya/tic-tac-toe-frontend
+
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: full_stack_project
+      MYSQL_USER: full_stack_project
+      MYSQL_PASSWORD: 1q2w3e4r
+      MYSQL_ROOT_PASSWORD: 1q2w3e4r
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backend  
+  
+volumes:
+  db-data:
+
+networks:
+  backend:
+  frontend:    
+
